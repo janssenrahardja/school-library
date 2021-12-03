@@ -137,6 +137,6 @@ class UserController extends Controller
             $dataUser->delete();
         }
 
-        return view('pages.user.index');
+        return redirect(url()->previous())->with('success', 'User Deleted');
     }
 }

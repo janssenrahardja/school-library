@@ -22,6 +22,12 @@
                         Users
                     </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('authors')" :active="request()->routeIs('authors')">
+                        Authors
+                    </x-nav-link>
+                    <x-nav-link :href="route('books')" :active="request()->routeIs('books')">
+                        Books
+                    </x-nav-link>
                 </div>
             </div>
 

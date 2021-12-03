@@ -6,26 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Book extends Model
+class Author extends Model
 {
     use HasFactory;
     use SoftDeletes;
     
-    protected $table = 'books';
+    protected $table = 'authors';
     protected $fillable = [
-        'author_id',
-        'title',
-        'description',
-        'image',
+        'name',
         'created_by',
         'updated_by',
         'deleted_by'
     ];
-
-    public function authors()
-    {
-        return $this->belongsTo('App\Models\Author', 'author_id');
-    }
 
     public function createdBy()
     {
