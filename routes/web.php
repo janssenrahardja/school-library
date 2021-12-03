@@ -14,11 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::group(['prefix' => 'users', 'middleware' => ['admin']], function(){
+        Route::get('/','UserController@index')->name('users');
+        Route::get('create','UserController@create')->name('users.create');
+        Route::post('/','UserController@store')->name('users.store');
+        Route::get('{id}','UserController@show')->name('users.detail');
+        Route::get('delete/{id}','UserController@delete')->name('users.delete');
+    });
+    Route::post('users/{id}','UserController@update')->name('users.update');
+
+    Route::get('profile','UserController@profile')->name('profile');
+});
 
 require __DIR__.'/auth.php';

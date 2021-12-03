@@ -16,6 +16,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if(Auth::user()->roles === 'admin')
+                    <x-nav-link :href="route('users')" :active="request()->routeIs('users')">
+                        Users
+                    </x-nav-link>
+                    @endif
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -35,6 +42,15 @@
 
                     <x-slot name="content">
                         <!-- Authentication -->
+                        <form method="GET" action="{{ route('profile') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('profile')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                Profile
+                            </x-dropdown-link>
+                        </form>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
